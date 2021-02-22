@@ -1,0 +1,35 @@
+* npm install webpack webpack-cli --save-dev
+--> Install webpack and webpackcli. So we can run in cli. 
+
+--> nix webpack to run webpack. It will creat list folder and main.js file to minified and uglified.
+
+<!doctype html>
+<html>
+    <head>
+        <title>Hello World</title>
+        <meta charset="utf-8"/>
+    </head>
+    <body>
+        <!-- Need to add hello-world.js first. So define first then declare -->
+        <!-- <script src="./src/hello-world.js"></script> -->
+        <script src="./src/index.js"></script>
+    </body>
+</html>
+
+--> npx webpack --stats detailed : for more detail logs.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+module.exports = {
+    entry: './src/index.js',  // Start from this file when running build process
+    output: {   // file will generated after build process
+         filename: 'bundle.js',  // When webpack run it will store result in main.js or bundle.js
+         path: './dist'   // directory name
+         // Webpack create folder and file if it will not exist
+    },
+    mode: 'none',
+}
+
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"   // use build instead "npx build"
+  },
