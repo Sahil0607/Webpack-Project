@@ -3,14 +3,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    // entry: './src/index.js', 
-    entry: {  // Split code in to multiple bundle
+    entry: {  
         'butterfly': './src/butterfly.js',
         'hello-world': './src/hello-world.js' 
     }, 
-    // Same as prod
     output: {   
-         filename: '[name].bundle.js',   // webpack take [name] from entrypoint. Here it'll take hello-world and butterfly.
+         filename: '[name].bundle.js',   
          path: path.resolve(__dirname, './dist'),   
         publicPath: '', 
     },
@@ -80,21 +78,19 @@ module.exports = {
         new HtmlWebpackPlugin({  
             filename: 'hello-world.html',
             title: 'Hello World',
-            chunks: ['hello-world'],  // same name as entrypoit
+            chunks: ['hello-world'],  
             template: 'src/page-template.hbs',  
             description: 'Hello world',
-            minify: false  // true by default. Make readable code in dist/index.html
+            minify: false  
         }), 
         new HtmlWebpackPlugin({  
             filename: 'butterfly.html',
             title: 'Butterfly',
-            chunks: ['butterfly'],  // same name as entrypoit
+            chunks: ['butterfly'],  
             template: 'src/page-template.hbs',  
             description: 'Butterfly',
-            minify: false  // true by default. Make readable code in dist/index.html
+            minify: false  
         }), 
 
     ],    
 }
-
-// Setup dev env for multiple app.
