@@ -2,6 +2,7 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
     entry: './src/hello-world.js', // same as dev
@@ -9,7 +10,7 @@ module.exports = {
          filename: '[name].[contenthash].js',  
          path: path.resolve(__dirname, './dist'),   
         // publicPath: '', 
-        publicPath: 'https://localhost:9001/',  // used for static file used in express.
+        publicPath: 'http://localhost:9001/',  // used for static file used in express.
     },
     mode: 'production', 
     optimization: {  

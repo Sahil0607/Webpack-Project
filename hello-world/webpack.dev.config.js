@@ -8,7 +8,7 @@ module.exports = {
     output: {   
          filename: '[name].bundle.js',   
          path: path.resolve(__dirname, './dist'),   
-         publicPath: 'https://localhost:9001/',   // Current url
+         publicPath: 'http://localhost:9001/',   // Current url
     },
     mode: 'development', 
     devServer: {  
@@ -68,12 +68,7 @@ module.exports = {
         ],
     },
     plugins: [
-        new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: [
-                '**/*',  
-                path.join(process.cwd(), 'build/**/*') 
-            ],
-        }),
+        new CleanWebpackPlugin({}),
         new HtmlWebpackPlugin({  
             filename: 'hello-world.html',
             title: 'Hello World',
