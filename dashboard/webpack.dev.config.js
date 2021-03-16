@@ -8,7 +8,7 @@ module.exports = {
     output: {   
          filename: '[name].bundle.js',   
          path: path.resolve(__dirname, './dist'),   
-        publicPath: 'http://localhost:9002/',  // Instead of '' use same as helloworld app
+        publicPath: 'http://localhost:9000/',  // Instead of '' use same as helloworld app
     },
     mode: 'development', 
     devServer: {  
