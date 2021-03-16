@@ -16,7 +16,8 @@ module.exports = {
     optimization: {  
         splitChunks: {
             chunks: 'all',
-            minSize: 3000  
+            minSize: 10000,
+            automaticNameDelimiter: '_'  
         }
     },
     module: {
@@ -40,12 +41,12 @@ module.exports = {
             //         MiniCssExtractPlugin.loader, 'css-loader'  
             //     ], 
             // },
-            // {
-            //     test: /\.scss$/,
-            //     use: [
-            //         MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' 
-            //     ] 
-            // }, 
+            {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' 
+                ] 
+            }, 
             {
                 test: /\.js$/,  
                 exclude: /node_modules/,
@@ -95,7 +96,7 @@ module.exports = {
             name: 'App',
             remotes: { // Need to specify which remote app we need to consume
                 // Here we are telling webpack which url app is running
-                HelloworldApp: 'HelloworldApp@http://localhost:9001/remoteEntry.js',
+                HelloWorldApp: 'HelloWorldApp@http://localhost:9001/remoteEntry.js',
                 ButterflyApp: 'ButterflyApp@http://localhost:9002/remoteEntry.js'
             },
         }),

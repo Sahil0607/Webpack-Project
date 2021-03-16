@@ -43,14 +43,14 @@ module.exports = {
             //         'css-loader'  
             //     ], 
             // },
-            // {
-            //     test: /\.scss$/,
-            //     use: [
-            //         'style-loader',  
-            //         'css-loader',
-            //         'sass-loader' 
-            //     ] 
-            // }, 
+            {
+                test: /\.scss$/,
+                use: [
+                    'style-loader',  
+                    'css-loader',
+                    'sass-loader' 
+                ] 
+            }, 
             {
                 test: /\.js$/,  
                 exclude: /node_modules/,
@@ -92,7 +92,7 @@ module.exports = {
             name: 'App',
             remotes: { // Need to specify which remote app we need to consume
                 // Here we are telling webpack which url app is running
-                HelloworldApp: 'HelloworldApp@http://localhost:9001/remoteEntry.js',
+                HelloWorldApp: 'HelloWorldApp@http://localhost:9001/remoteEntry.js',
                 ButterflyApp: 'ButterflyApp@http://localhost:9002/remoteEntry.js'
             },
 

@@ -15,7 +15,7 @@ app.get('*', (req, res) => {
 });
 
 app.listen(9000, () => {
-    console.log('Application is running on htmmp://localhost:9000');
+    console.log('Application is running on http://localhost:9000');
 });
 
 // npm install webpack webpack-cli webpack-dev-server mini-css-extract-plugin html-webpack-plugin clean-webpack-plugin babel-loader @babel/core @babel/preset-env --save-dev
