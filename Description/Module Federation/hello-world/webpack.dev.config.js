@@ -1,27 +1,24 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
-    entry: './src/hello-world.js', // same as dev
+    entry: './src/hello-world.js',  // Need only 1 entry app
     output: {   
-         filename: '[name].[contenthash].js',  
+         filename: '[name].bundle.js',   
          path: path.resolve(__dirname, './dist'),   
-        // publicPath: '', 
-        publicPath: 'http://localhost:9001/',  // used for static file used in express.
+         publicPath: 'http://localhost:9001/',   // Current url
     },
-    mode: 'production', 
-    optimization: {  
-        splitChunks: {
-            chunks: 'all',
-            minSize: 3000  
-        }
+    mode: 'development', 
+    devServer: {  
+        contentBase: path.resolve(__dirname, './dist'),   
+        index: 'hello-world.html',   // Change name 
+        port: 9001   // 9001 for first app and 9002 for sec. app
     },
     module: {
         rules: [
-            // not needed same as dev
+            // Not use in hello-world, image used in butterfly component
             // {  
             //     test: /\.(png|jpg)$/,
             //     type: 'asset',  
@@ -35,16 +32,20 @@ module.exports = {
             //     test: /\.txt$/,  
             //     type: 'asset/source'  
             // },  
+            // Using sass everywhere
             // {  
             //     test: /\.css$/,
             //     use: [ 
-            //         MiniCssExtractPlugin.loader, 'css-loader'  
+            //         'style-loader',  
+            //         'css-loader'  
             //     ], 
             // },
             {
                 test: /\.scss$/,
                 use: [
-                    MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' 
+                    'style-loader',  
+                    'css-loader',
+                    'sass-loader' 
                 ] 
             }, 
             {
@@ -67,39 +68,30 @@ module.exports = {
         ],
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: '[name].[contenthash].css'  
-        }),
-        new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: [
-                '**/*',  
-                path.join(process.cwd(), 'build/**/*') 
-            ],
-        }),
+        new CleanWebpackPlugin({}),
         new HtmlWebpackPlugin({  
             filename: 'hello-world.html',
             title: 'Hello World',
-            // chunks: ['hello-world'],   // same as dev
+            // chunks: ['hello-world'],  // not needed
             template: 'src/page-template.hbs',  
             description: 'Hello world',
             minify: false  
         }), 
-        // same as dev
+        // Only need helloworld plugin
         // new HtmlWebpackPlugin({  
         //     filename: 'butterfly.html',
         //     title: 'Butterfly',
         //     chunks: ['butterfly'],  
         //     template: 'src/page-template.hbs',  
         //     description: 'Butterfly',
-        //     minify: false 
+        //     minify: false  
         // }), 
         new ModuleFederationPlugin({
             name: 'HelloWorldApp',
             filename: 'remoteEntry.js',  // naming convention
             exposes: {   // name of file which we expose 
                 './HelloWorldButton': './src/component/hello-world-button/hello-world-button.js',
-                './HelloWorldPage': './src/component/hello-world-page/hello-world-page.js', // same as dev
             }
-        }), 
+        }),
     ],    
 }

@@ -15,8 +15,7 @@ app.get('/', (req, res) => {
 //     res.send(contentFromHtmlFile);
 // });
  
-// '/static' no needed, use root url '/'
-app.use('/', express.static(path.resolve(__dirname, '../dist')));
+app.use('/static', express.static(path.resolve(__dirname, '../dist')));
 
 app.listen(9002, () => {
     console.log('App is running on port http://localhost:9002');

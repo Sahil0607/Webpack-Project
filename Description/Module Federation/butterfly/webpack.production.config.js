@@ -5,12 +5,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ModuleFederationPlugin } = require('webpack').container;
 
 module.exports = {
-    entry: './src/hello-world.js', // same as dev
+    entry: './src/butterfly.js',  // same as dev
     output: {   
          filename: '[name].[contenthash].js',  
          path: path.resolve(__dirname, './dist'),   
         // publicPath: '', 
-        publicPath: 'http://localhost:9001/',  // used for static file used in express.
+        publicPath: '/static/',  // used for static file used in express.
     },
     mode: 'production', 
     optimization: {  
@@ -21,16 +21,15 @@ module.exports = {
     },
     module: {
         rules: [
-            // not needed same as dev
-            // {  
-            //     test: /\.(png|jpg)$/,
-            //     type: 'asset',  
-            //     parser: {  
-            //         dataUrlCondition: {  
-            //             maxSize: 3 * 1024, 
-            //         }
-            //     }
-            // },
+            {  
+                test: /\.(png|jpg)$/,
+                type: 'asset',  
+                parser: {  
+                    dataUrlCondition: {  
+                        maxSize: 3 * 1024, 
+                    }
+                }
+            },
             // {  
             //     test: /\.txt$/,  
             //     type: 'asset/source'  
@@ -53,8 +52,7 @@ module.exports = {
                 use: {
                     loader: 'babel-loader', 
                     options: {  
-                        presets: ['@babel/env'],  
-                        plugins: ['@babel/plugin-proposal-class-properties'] 
+                        presets: ['@babel/env']
                     }, 
                 }
             },
@@ -71,35 +69,36 @@ module.exports = {
             filename: '[name].[contenthash].css'  
         }),
         new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: [
-                '**/*',  
-                path.join(process.cwd(), 'build/**/*') 
-            ],
+            // cleanOnceBeforeBuildPatterns: [
+            //     '**/*',  
+            //     path.join(process.cwd(), 'build/**/*') 
+            // ],
         }),
-        new HtmlWebpackPlugin({  
-            filename: 'hello-world.html',
-            title: 'Hello World',
-            // chunks: ['hello-world'],   // same as dev
-            template: 'src/page-template.hbs',  
-            description: 'Hello world',
-            minify: false  
-        }), 
         // same as dev
         // new HtmlWebpackPlugin({  
-        //     filename: 'butterfly.html',
-        //     title: 'Butterfly',
-        //     chunks: ['butterfly'],  
+        //     filename: 'hello-world.html',
+        //     title: 'Hello World',
+        //     chunks: ['hello-world'],   
         //     template: 'src/page-template.hbs',  
-        //     description: 'Butterfly',
-        //     minify: false 
+        //     description: 'Hello world',
+        //     minify: false  
         // }), 
-        new ModuleFederationPlugin({
-            name: 'HelloWorldApp',
-            filename: 'remoteEntry.js',  // naming convention
-            exposes: {   // name of file which we expose 
-                './HelloWorldButton': './src/component/hello-world-button/hello-world-button.js',
-                './HelloWorldPage': './src/component/hello-world-page/hello-world-page.js', // same as dev
-            }
+        new HtmlWebpackPlugin({  
+            filename: 'butterfly.html',
+            title: 'Butterfly',
+            // chunks: ['butterfly'],  // same as dev
+            template: 'src/page-template.hbs',  
+            description: 'Butterfly',
+            minify: false 
         }), 
+        new ModuleFederationPlugin({
+            name: 'ButterflyApp',
+            // This app does not expose anything.
+            remotes: {  // remote module shared by other app.
+                // list of remote app
+                HelloWorldApp: 'HelloWorldApp@http://localhost:9001/remoteEntry.js'  
+                // remoteEntry: same name used in helloworld dev webpack in ModuleFederationPlugin
+            }
+        }),
     ],    
 }

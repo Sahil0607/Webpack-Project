@@ -8,7 +8,7 @@ module.exports = {
     output: {   
          filename: '[name].bundle.js',   
          path: path.resolve(__dirname, './dist'),   
-        publicPath: 'http://localhost:9002/',  // Instead of '' use same as helloworld app
+        publicPath: '', 
     },
     mode: 'development', 
     devServer: {  
@@ -91,15 +91,10 @@ module.exports = {
         new ModuleFederationPlugin({
             name: 'ButterflyApp',
             // This app does not expose anything.
-            // No needed
-            // remotes: {  
-            //     HelloWorldApp: 'HelloWorldApp@http://localhost:9001/remoteEntry.js' 
-            // }
-
-            // Add filename and exposes same as Helloworld app 
-            filename: 'remoteEntry.js',
-            exposes: {
-                './ButterflyPage': './src/component/butterfly-page/butterfly-page.js'
+            remotes: {  // remote module shared by other app.
+                // list of remote module shared by other app
+                HelloWorldApp: 'HelloWorldApp@http://localhost:9001/remoteEntry.js'  
+                // remoteEntry: same name used in helloworld dev webpack in ModuleFederationPlugin
             }
         }),
     ],    

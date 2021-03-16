@@ -15,5 +15,3 @@ if (process.env.NODE_ENV == 'production') {
     console.log('This is development mode');
 }
 
-// Export Component and move to hello-world-page
-

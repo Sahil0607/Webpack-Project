@@ -10,7 +10,7 @@ module.exports = {
          filename: '[name].[contenthash].js',  
          path: path.resolve(__dirname, './dist'),   
         // publicPath: '', 
-        publicPath: '/static/',  // used for static file used in express.
+        publicPath: 'http://localhost:9001/',  // Insetad of '/static/' use actual url same as hello-world
     },
     mode: 'production', 
     optimization: {  
@@ -69,10 +69,10 @@ module.exports = {
             filename: '[name].[contenthash].css'  
         }),
         new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: [
-                '**/*',  
-                path.join(process.cwd(), 'build/**/*') 
-            ],
+            // cleanOnceBeforeBuildPatterns: [
+            //     '**/*',  
+            //     path.join(process.cwd(), 'build/**/*') 
+            // ],
         }),
         // same as dev
         // new HtmlWebpackPlugin({  
@@ -94,10 +94,14 @@ module.exports = {
         new ModuleFederationPlugin({
             name: 'ButterflyApp',
             // This app does not expose anything.
-            remotes: {  // remote module shared by other app.
-                // list of remote app
-                HelloWorldApp: 'HelloWorldApp@http://localhost:9001/remoteEntry.js'  
-                // remoteEntry: same name used in helloworld dev webpack in ModuleFederationPlugin
+            // remotes: {  
+            //     HelloWorldApp: 'HelloWorldApp@http://localhost:9001/remoteEntry.js'  
+            // }
+
+            // same as dev and hello-world
+            filename: 'remoteEntry.js',
+            exposes: {
+                './ButterflyPage': './src/component/butterfly-page/butterfly-page.js'
             }
         }),
     ],    

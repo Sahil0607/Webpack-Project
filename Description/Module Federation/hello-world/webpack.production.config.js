@@ -98,7 +98,6 @@ module.exports = {
             filename: 'remoteEntry.js',  // naming convention
             exposes: {   // name of file which we expose 
                 './HelloWorldButton': './src/component/hello-world-button/hello-world-button.js',
-                './HelloWorldPage': './src/component/hello-world-page/hello-world-page.js', // same as dev
             }
         }), 
     ],    
