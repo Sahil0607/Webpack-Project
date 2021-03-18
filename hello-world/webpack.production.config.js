@@ -16,7 +16,8 @@ module.exports = {
     optimization: {  
         splitChunks: {
             chunks: 'all',
-            minSize: 3000  
+            minSize: 10000,
+            automaticNameDelimiter: '_'
         }
     },
     module: {
@@ -44,7 +45,9 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' 
+                    MiniCssExtractPlugin.loader,
+                    'css-loader', 
+                    'sass-loader' 
                 ] 
             }, 
             {
@@ -60,9 +63,9 @@ module.exports = {
             },
             {
                 test: /\.hbs$/,   
-                use: {
-                    loader: 'handlebars-loader', 
-                }
+                use: [
+                    'handlebars-loader', 
+                ]
             },
         ],
     },
@@ -71,10 +74,10 @@ module.exports = {
             filename: '[name].[contenthash].css'  
         }),
         new CleanWebpackPlugin({
-            cleanOnceBeforeBuildPatterns: [
-                '**/*',  
-                path.join(process.cwd(), 'build/**/*') 
-            ],
+            // cleanOnceBeforeBuildPatterns: [
+            //     '**/*',  
+            //     path.join(process.cwd(), 'build/**/*') 
+            // ],
         }),
         new HtmlWebpackPlugin({  
             filename: 'hello-world.html',

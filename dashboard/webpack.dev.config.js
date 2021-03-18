@@ -64,12 +64,14 @@ module.exports = {
         ],
     },
     plugins: [
-        new CleanWebpackPlugin({
+        new CleanWebpackPlugin(
+            // {
             // cleanOnceBeforeBuildPatterns: [
             //     '**/*',  
             //     path.join(process.cwd(), 'build/**/*') 
             // ],
-        }),
+            // }
+        ),
         // new HtmlWebpackPlugin({  
         //     filename: 'hello-world.html',
         //     title: 'Hello World',

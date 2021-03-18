@@ -10,13 +10,14 @@ module.exports = {
          filename: '[name].[contenthash].js',  
          path: path.resolve(__dirname, './dist'),   
         // publicPath: '', 
-        publicPath: 'http://localhost:9001/',  // Insetad of '/static/' use actual url same as hello-world
+        publicPath: 'http://localhost:9002/',  // Insetad of '/static/' use actual url same as hello-world
     },
     mode: 'production', 
     optimization: {  
         splitChunks: {
             chunks: 'all',
-            minSize: 3000  
+            minSize: 10000,
+            automaticNameDelimiter: '_'
         }
     },
     module: {
@@ -30,10 +31,10 @@ module.exports = {
                     }
                 }
             },
-            // {  
-            //     test: /\.txt$/,  
-            //     type: 'asset/source'  
-            // },  
+            {  
+                test: /\.txt$/,  
+                type: 'asset/source'  
+            },  
             // {  
             //     test: /\.css$/,
             //     use: [ 
@@ -43,7 +44,9 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader' 
+                    MiniCssExtractPlugin.loader, 
+                    'css-loader', 
+                    'sass-loader' 
                 ] 
             }, 
             {
@@ -58,9 +61,9 @@ module.exports = {
             },
             {
                 test: /\.hbs$/,   
-                use: {
-                    loader: 'handlebars-loader', 
-                }
+                use: [
+                    'handlebars-loader', 
+                ]
             },
         ],
     },

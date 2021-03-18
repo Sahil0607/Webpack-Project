@@ -61,9 +61,9 @@ module.exports = {
             },
             {
                 test: /\.hbs$/,   
-                use: {
-                    loader: 'handlebars-loader', 
-                }
+                use: [
+                    'handlebars-loader', 
+                ]
             },
         ],
     },
@@ -75,7 +75,7 @@ module.exports = {
             // chunks: ['hello-world'],  // not needed
             template: 'src/page-template.hbs',  
             description: 'Hello world',
-            minify: false  
+            // minify: false  
         }), 
         // Only need helloworld plugin
         // new HtmlWebpackPlugin({  

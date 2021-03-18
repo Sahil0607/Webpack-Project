@@ -33,6 +33,8 @@ if(url === '/hello-world-page') {
     });
 }
 
+console.log('dashboard');
+
 // Need to import dynamically bec. bundle are loaded async.
 // Import Federated module from webpack and render the page.
 // Create express server to serve app in to browser

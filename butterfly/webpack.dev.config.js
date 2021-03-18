@@ -8,7 +8,7 @@ module.exports = {
     output: {   
          filename: '[name].bundle.js',   
          path: path.resolve(__dirname, './dist'),   
-        publicPath: 'http://localhost:9002/',  // Instead of '' use same as helloworld app
+         publicPath: 'http://localhost:9002/',  // Instead of '' use same as helloworld app
     },
     mode: 'development', 
     devServer: {  
@@ -27,10 +27,10 @@ module.exports = {
                     }
                 }
             },
-            // {  
-            //     test: /\.txt$/,  
-            //     type: 'asset/source'  
-            // },  
+            {  
+                test: /\.txt$/,  
+                type: 'asset/source'  
+            },  
             // Using sass everywhere
             // {  
             //     test: /\.css$/,
@@ -59,9 +59,9 @@ module.exports = {
             },
             {
                 test: /\.hbs$/,   
-                use: {
-                    loader: 'handlebars-loader', 
-                }
+                use: [
+                    'handlebars-loader', 
+                ]
             },
         ],
     },
@@ -85,8 +85,8 @@ module.exports = {
             title: 'Butterfly',
             // chunks: ['butterfly'],  // not needed
             template: 'src/page-template.hbs',  
-            description: 'butterfly',
-            minify: false  
+            description: 'Butterfly',
+            // minify: false  
         }), 
         new ModuleFederationPlugin({
             name: 'ButterflyApp',

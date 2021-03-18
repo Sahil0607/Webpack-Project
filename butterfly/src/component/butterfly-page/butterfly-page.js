@@ -1,5 +1,5 @@
-import ButterflyImage from './component/butterfly-image/butterfly-image';
-import Heading from './component/heading/heading';
+import ButterflyImage from '../butterfly-image/butterfly-image';
+import Heading from '../heading/heading';
 import _ from 'lodash';
 
 class ButterflyPage {
@@ -12,6 +12,6 @@ class ButterflyPage {
     }
 }
 
-export default ButterflyImage;
+export default ButterflyPage;
 // same as hello-world-page
  
